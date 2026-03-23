@@ -58,4 +58,6 @@ Google 官方和现代架构指南给出的唯一正解是：**状态驱动（St
 
 ---
 
-希望这段文字能让你的 `README.md` 充满说服力，吸引更多的开发者尝试和使用 **Flare**！
+**参考资料：**
+
+- [微信公众号文章：Channel 和 SharedFlow 的坑](https://mp.weixin.qq.com/s/J5OCYr59Tcf3XX2guvZjOw)

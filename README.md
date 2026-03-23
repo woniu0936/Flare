@@ -4,6 +4,16 @@
 彻底告别 `Channel` 丢失事件的恐惧，告别 `SharedFlow` 屏幕旋转重复弹窗的噩梦。
 Flare 借鉴了流式处理的 **Cursor (游标)** 机制，无论屏幕如何旋转、有多少个不同的订阅者同时监听，事件**绝对到达，且只执行一次**。
 
+#### 为什么选择 Flare？(Why Flare?)
+
+在现代 Android 开发中，处理一次性事件（如导航跳转、Toast 提示）时，使用传统的 `Channel` 或 `SharedFlow` 往往会导致事件丢失或重复消费的问题，尤其在屏幕旋转或应用后台时。详情请参见 [Why_Flare.md](docs/Why_Flare.md)。
+
+Flare 通过创新的游标机制，确保事件绝对安全且只执行一次，彻底解决这些痛点，为开发者提供无忧的开发体验。
+
+#### 深入了解架构 (Architecture)
+
+想要了解 Flare 的核心设计思想、源码解析和最佳使用场景？请参考 [Flare_Architecture.md](docs/Flare_Architecture.md)。
+
 #### 快速上手 (Quick Start)
 
 **1. 定义事件与 ViewModel**
