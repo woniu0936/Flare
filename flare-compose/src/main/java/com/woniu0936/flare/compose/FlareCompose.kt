@@ -1,4 +1,4 @@
-package com.woniu0936.flare
+package com.woniu0936.flare.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -7,6 +7,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import com.woniu0936.flare.FlareBroadcaster
+import com.woniu0936.flare.InternalFlareApi
 
 /**
  * 在 Jetpack Compose 中安全地观察 Flare 事件。
@@ -16,6 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
  * @param minActiveState 接收事件的最小生命周期状态，默认为 STARTED（UI 可见时才处理）。
  * @param onEvent 接收到事件时的回调逻辑（suspend 函数，支持直接调用 Snackbar 等挂起函数）。
  */
+@OptIn(InternalFlareApi::class)
 @Composable
 fun <T> ConsumeFlare(
     broadcaster: FlareBroadcaster<T>,

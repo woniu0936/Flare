@@ -11,7 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/flare" />
+            <option value="$PROJECT_DIR$/flare-compose" />
+            <option value="$PROJECT_DIR$/flare-core" />
+            <option value="$PROJECT_DIR$/flare-view" />
           </set>
         </option>
       </GradleProjectSettings>

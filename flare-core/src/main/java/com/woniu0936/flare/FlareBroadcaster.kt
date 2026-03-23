@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 
 
-
 /**
  * Flare 事件广播器核心引擎
  *
@@ -20,6 +19,7 @@ import java.util.concurrent.atomic.AtomicLong
  *                        如果 App 在后台时产生大量事件，UI 恢复时能按顺序收到最近的 10 个事件。
  * @param bufferCapacity  额外缓冲区大小。
  */
+@OptIn(InternalFlareApi::class)
 class FlareBroadcaster<T>(
     replayCacheSize: Int = 10,
     bufferCapacity: Int = 64
@@ -35,8 +35,8 @@ class FlareBroadcaster<T>(
     )
 
     // 暴露给外部收集的不可变 Flow
-    @PublishedApi
-    internal val flares = _flares.asSharedFlow()
+    @InternalFlareApi
+    val flares = _flares.asSharedFlow()
 
     // 游标记录器：记录每个 Consumer Tag 最后消费过的事件 ID
     private val consumerCursors = ConcurrentHashMap<String, Long>()
@@ -54,8 +54,8 @@ class FlareBroadcaster<T>(
      * 供内部使用的消费者游标初始化逻辑。
      * 当一个新的 UI 组件首次出现时，它不应该去处理历史遗留的旧事件。
      */
-    @PublishedApi
-    internal fun initConsumerCursorIfNeeded(consumerTag: String) {
+    @InternalFlareApi
+    fun initConsumerCursorIfNeeded(consumerTag: String) {
         // 只有当该 tag 尚未注册时，才将其游标对齐到当前的最新 ID
         consumerCursors.putIfAbsent(consumerTag, idGenerator.get())
     }
@@ -66,8 +66,8 @@ class FlareBroadcaster<T>(
      *
      * @return true 表示允许消费，false 表示该事件已被此 tag 消费过（通常是屏幕旋转引起的回放）
      */
-    @PublishedApi
-    internal fun tryConsume(consumerTag: String, eventId: Long): Boolean {
+    @InternalFlareApi
+    fun tryConsume(consumerTag: String, eventId: Long): Boolean {
         var shouldProcess = false
         // 原子化更新游标
         consumerCursors.compute(consumerTag) { _, lastProcessedId ->

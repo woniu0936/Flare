@@ -1,9 +1,11 @@
-package com.woniu0936.flare
+package com.woniu0936.flare.view
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.woniu0936.flare.FlareBroadcaster
+import com.woniu0936.flare.InternalFlareApi
 import kotlinx.coroutines.launch
 
 /**
@@ -14,11 +16,12 @@ import kotlinx.coroutines.launch
  * @param minActiveState 接收事件的最小生命周期状态，默认为 STARTED。
  * @param onEvent 接收到事件时的回调逻辑。
  */
-inline fun <T> LifecycleOwner.observeFlare(
+@OptIn(InternalFlareApi::class)
+fun <T> LifecycleOwner.observeFlare(
     broadcaster: FlareBroadcaster<T>,
     consumerTag: String,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
-    crossinline onEvent: suspend (T) -> Unit
+    onEvent: suspend (T) -> Unit
 ) {
     // 1. 初始化消费者游标
     broadcaster.initConsumerCursorIfNeeded(consumerTag)

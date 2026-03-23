@@ -20,5 +20,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Flare"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":flare")
+include(":flare-core")
+include(":flare-compose")
+include(":flare-view")
