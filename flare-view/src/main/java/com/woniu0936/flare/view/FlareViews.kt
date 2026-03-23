@@ -1,5 +1,6 @@
 package com.woniu0936.flare.view
 
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -37,4 +38,11 @@ fun <T> LifecycleOwner.observeFlare(
             }
         }
     }
+
+    this.lifecycle.addObserver(object : DefaultLifecycleObserver {
+        override fun onDestroy(owner: LifecycleOwner) {
+            broadcaster.resetConsumer(consumerTag)
+            owner.lifecycle.removeObserver(this)
+        }
+    })
 }
